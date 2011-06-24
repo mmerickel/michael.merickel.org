@@ -1,0 +1,8 @@
+Copyright 2006 Society of Photo-Optical Instrumentation Engineers.
+
+This paper was published in the Proceedings of the SPIE Physiology and Function,
+Volume 6143, and is made available as an electronic preprint with permission of
+SPIE. One print or electronic copy may be made for personal use only. Systematic
+or multiple reproduction, distribution to multiple locations via electronic or
+other means, duplication of any material in this paper for a fee or for
+commercial purposes, or modification of the content of the paper are prohibited.
