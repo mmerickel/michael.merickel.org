@@ -1,0 +1,7 @@
+---
+active_modules: [pygments, tags, blog, latex]
+author: Michael Merickel
+canonical_url: http://merickel.org/
+modules:
+  pygments:
+    style: tango
