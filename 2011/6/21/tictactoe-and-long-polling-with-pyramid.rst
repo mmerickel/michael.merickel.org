@@ -24,7 +24,7 @@ writing imperative, sequential code in Python.
 gevent
 ------
 
-gevent is an asychronous framework, but it has the unique ability to allow the
+gevent is an asynchronous framework, but it has the unique ability to allow the
 developer to almost completely ignore the fact that the code is executed
 asynchronously. Your code will run on an event loop using greenlets which
 feel like real threads, but are very light weight, trivial to spawn, and run
@@ -36,8 +36,8 @@ operation.  What this means for you is that you do not need to change your
 Python code in order to run it in an asynchronous way.
 
 While gevent can monkey patch the Python standard library, it can't do it all.
-Fortunately, my favorite SQL database PostgreSQL supports coroutines and
-asynchronous execution seemlessly. See Daniel Varrazzo's
+Fortunately, my favorite SQL database (PostgreSQL) already supports coroutines
+and asynchronous execution. See Daniel Varrazzo's
 `psycogreen <https://bitbucket.org/dvarrazzo/psycogreen/src/77a9c05f5229/
 gevent/psyco_gevent.py>`__
 repository for an example of configuring the psycopg2 driver to run under
@@ -51,7 +51,7 @@ TicTacToe
 As an experiment, I wanted a small application that could demonstrate long
 polling in action. Chat servers are boring and overused, so a friend came up
 with the idea of implementing TicTacToe, enabling various mobile devices to
-connect and play against eachother. The API is pretty straightforward,
+connect and play against each other. The API is pretty straightforward,
 allowing players to connect, be assigned to a game, and make moves. These are
 all basic functions that can be easily implemented using Pyramid's URL
 Dispatch:
@@ -69,9 +69,9 @@ Dispatch:
             'name': name,
         }
 
-Long polling comes in when ``player X`` places an X in a location on the board and
-we want to notify ``player O`` that it is their turn to move. To accomplish this,
-each game has a queue of events that have occured to get the board to the state
+Long polling comes in when ``playerX`` places an X in a location on the board and
+we want to notify ``playerO`` that it is their turn to move. To accomplish this,
+each game has a queue of events that have occurred to get the board to the state
 it is at currently. Each player can then watch this queue for changes. Each
 player in each game is then expected to connect to the server and maintain a
 connection until a new update happens which we can return in the response.
@@ -103,10 +103,9 @@ used when notifications occur.
 The implementation of this basically boils down to a couple arrays. One holds
 the timeline of updates, and the other stores the connected observers waiting
 for notifications. The ``Game`` then becomes a mechanism for grouping these
-together. When a new update is added to the ``Game``, the all observers are
-notified. Using the ``cursor``, observers are even able to replay this history
-of a game, allowing for resuming after client disconnects making the whole
-system more robust to odd behaviors.
+together. When a new update is added to the ``Game``, all observers are
+notified. Using the ``cursor`` pattern, the ability for clients to disconnect
+and resume where they left off naturally falls out of the design.
 
 .. code-block:: python
 
@@ -194,5 +193,7 @@ can publish notifications!
 The Code
 ~~~~~~~~
 
-The full code is available on Github, including the iOS client, at
-https://github.com/mmerickel/tictactoe.
+The full code is available on Github at https://github.com/mmerickel/tictactoe.
+The code also includes an iOS client which was developed with the help of
+employees at `Componica <http://www.componica.com>`__.
+.
