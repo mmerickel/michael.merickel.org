@@ -25,7 +25,7 @@ algorithms.
 If you want to contact me, you can reach me via one of the following
 channels:
 
-- via `email <michael+website@merickel.org>`_
+- via `email <site@m.merickel.org>`_
 - send me a message on `github <http://github.com/mmerickel>`_
 - or find me as `raydeo` in the ``#pyramid`` irc channel on freenode
 
