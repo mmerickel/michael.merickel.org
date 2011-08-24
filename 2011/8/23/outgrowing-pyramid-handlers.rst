@@ -101,21 +101,21 @@ Below is the handler-style code translated into vanilla ``add_route`` and
                 # vars exposed for home.mako
             }
 
-        @view_config(route_name='main', match_param='action==login',
+        @view_config(route_name='main', match_param='action=login',
                      renderer='login.mako')
         def login(self):
             return {
                 # vars exposed for login.mako
             }
 
-        @view_config(route_name='main', match_param='action==logout',
+        @view_config(route_name='main', match_param='action=logout',
                      renderer='logout.mako')
         def logout(self):
             return {
                 # vars exposed for logout.mako
             }
 
-        @view_config(route_name='main', match_param='action==search',
+        @view_config(route_name='main', match_param='action=search',
                      renderer='search.mako')
         @view_config(route_name='search', renderer='search.mako')
         def search(self):
