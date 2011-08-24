@@ -29,7 +29,8 @@ Some handler-style code:
                        handler='handlers.main.MainHandler',
                        action='index')
     config.add_handler('main', '/{action}',
-                       handler='handlers.main.MainHandler')
+                       handler='handlers.main.MainHandler',
+                       path_info=r'/(?!index)')
     config.add_handler('search', '/search/{id}',
                        handler='handlers.main.MainHandler',
                        action='search')
@@ -132,7 +133,10 @@ Explicit is better than implicit
 Very rarely do you actually want to expose *all* of the methods in a class
 via the same URL patterns. By being explicit, the configuration avoids
 unintended side-effects. For example, in the ``pyramid_handlers`` code above,
-`/index` is a valid URL even though this may not be intentional.
+we have to be careful to avoid `/index` being valid URL by way of the
+``path_info`` regular expression predicate and any other methods we add to
+the class need to take into consideration all of the URL patterns it may
+implicitly match. This is the definition of a maintenance nightmare.
 
 While Pyramid's configuration API is verbose, you are greatly rewarded for by
 way of fast runtimes and simpler view code. Since multiple views may be
