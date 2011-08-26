@@ -12,13 +12,17 @@ package introduced to the `Pyramid <https://pylonsproject.org>`_ suite of
 supported addons in Pyramid 1.0 as a way to ease the transition for
 developers coming from the Pylons framework during the public merger of the
 two projects. It closely maps previous functionality from the Pylons concept
-of ``controllers``. Handlers provide two main features:
+of ``controllers``. Handlers provide three main features:
 
 1. Grouping of relevant code. A class provides a logical way to organize a
    bunch of code related to a section of your site.
 
 2. Syntactic sugar for exposing several URLs under a single route name. This
    can help with generation and configuration verbosity.
+
+3. A single location for routing. It's possible to look at the
+   ``add_handler`` calls and determine not only what URLs are supported but
+   also where the code is that is handling those URLs.
 
 Some handler-style code:
 
@@ -77,7 +81,7 @@ invoked.
 Given that multiple views can be attached to a single route, Pyramid 1.2
 introduces the ``match_param`` view predicate which helps the user. This
 will allow the user to register multiple views for the same route and then
-control the dispatch based on a pattern in the URL, e.g. {action}.
+control the dispatch based on a pattern in the URL, e.g. ``{action}``.
 
 Below is the handler-style code translated into vanilla ``add_route`` and
 ``view_config`` URL dispatch.
@@ -133,23 +137,17 @@ Explicit is better than implicit
 Very rarely do you actually want to expose *all* of the methods in a class
 via the same URL patterns. By being explicit, the configuration avoids
 unintended side-effects. For example, in the ``pyramid_handlers`` code above,
-we have to be careful to avoid `/index` being valid URL by way of the
+we have to be careful to avoid `/index` being a valid URL by way of the
 ``path_info`` regular expression predicate and any other methods we add to
 the class need to take into consideration all of the URL patterns it may
 implicitly match. This is the definition of a maintenance nightmare.
-
-While Pyramid's configuration API is verbose, you are greatly rewarded for by
-way of fast runtimes and simpler view code. Since multiple views may be
-attached to a route, you can leave the dispatch up to Pyramid, allowing your
-views to focus on their single purpose, without requiring a bunch of
-``if``-statements to handle different functionality.
 
 Separation of concerns
 ~~~~~~~~~~~~~~~~~~~~~~
 
 In the handler code the actions are embedded in not only the methods
-decorated by ``@action`` but also in some of the ``add_handler`` calls, e.g.
-the ``search`` route. Notice that in the Pyramid code the
+decorated by ``@action`` but also in some of the ``add_handler`` calls,
+e.g. the ``search`` route. Notice that in the Pyramid code the
 ``MainHandler.search`` method is very clearly handling two different routes,
 at the point where the view is defined. This serves as a reminder while
 implementing those functions that it needs to account for both possibilities.
@@ -160,3 +158,26 @@ Fewer dependencies
 Removing the need for ``pyramid_handlers``, while small, encourages users to
 learn the Pyramid API which is well-designed, extensible and capable of
 handling a large number scenarios on its own merit.
+
+What are the disadvantages?
++++++++++++++++++++++++++++
+
+The major feature that ``pyramid_handlers`` provides is a central location
+where URLs are mapped to code. Using Pyramid's ``add_route`` and ``add_view``
+APIs are inherently separated, and lazy about the connection between the URL
+and which view this URL could map to. Pyramid tries to help by providing
+``paster`` functions like ``pviews`` that will show, for a URL, what views
+exist. However, some developers will prefer the ability to look at the
+``add_handler`` calls directly and determine not only what URL is supported,
+but what code will be executed for that URL.
+
+Why is Pyramid's routing awesome?
++++++++++++++++++++++++++++++++++
+
+Whether you use ``pyramid_handlers`` or the routing directly, hopefully you
+can gain an appreciation for the configurability of Pyramid's URL Dispatch.
+While Pyramid's configuration API is verbose, you are greatly rewarded by
+way of fast runtimes and simpler view code. Since multiple views may be
+attached to a route, you can leave the dispatch up to Pyramid, allowing your
+views to focus on their single purpose, without requiring a bunch of
+``if``-statements to handle different functionality.
