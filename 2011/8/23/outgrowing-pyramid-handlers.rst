@@ -164,12 +164,12 @@ What are the disadvantages?
 
 The major feature that ``pyramid_handlers`` provides is a central location
 where URLs are mapped to code. Using Pyramid's ``add_route`` and ``add_view``
-APIs are inherently separated, and lazy about the connection between the URL
-and which view this URL could map to. Pyramid tries to help by providing
-``paster`` functions like ``pviews`` that will show, for a URL, what views
-exist. However, some developers will prefer the ability to look at the
-``add_handler`` calls directly and determine not only what URL is supported,
-but what code will be executed for that URL.
+APIs provides an explicit separation between the URL and the view to which
+this URL could map. Pyramid tries to help by providing ``paster`` functions
+like ``pviews`` that will show, for a URL, what views exist. However, some
+developers will prefer the ability to look at the ``add_handler`` calls
+directly and determine not only what URL is supported, but what code will be
+executed for that URL.
 
 Why is Pyramid's routing awesome?
 +++++++++++++++++++++++++++++++++
