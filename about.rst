@@ -36,5 +36,6 @@ The website itself is written in
 `restructured text <http://docutils.sourceforge.net/rst.html>`_ (rST) and
 built with the `rstblog <http://github.com/mitsuhiko/rstblog>`_ package
 written by `Armin Ronacher <http://lucumr.pocoo.org>`_. The source of this
-site can be `found on github <http://github.com/mmerickel/merickel.org>`_.
+site can be
+`found on github <http://github.com/mmerickel/michael.merickel.org>`_.
 
